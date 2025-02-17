@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link rel="stylesheet" href="/css/s_register.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo">
+        <h1>ecoFashion</h1>
+        <p>Sustainable Style, Every Mile.</p>
+      </div>
+
+      <ul class="errors">
+        <% if (typeof errors != 'undefined') { %> <% errors.forEach((error) => {
+        %>
+        <li><%= error.message %></li>
+        <% }); %> <% } %>
+      </ul>
+
+      <form class="registration-form" action="/users/register" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="contact">Contact:</label>
+        <input type="tel" id="contact" name="contact" />
+
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" rows="4" cols="50"></textarea>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
+
+        <label for="confirm_password">Confirm Password:</label>
+        <input
+          type="password"
+          id="confirm_password"
+          name="confirm_password"
+          required
+        />
+        <label for="option1">
+          <input type="radio" name="options" value="customers" cheked />
+          Consumer Role</label
+        >
+        <label for="option2">
+          <input type="radio" name="options" value="suppliers" />
+          Supplier Role</label
+        >
+        <button type="submit">Create Account</button>
+        <div class="login-link">
+          <a href="/users/login">Already registered? Login here</a>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

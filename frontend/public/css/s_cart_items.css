@@ -1,0 +1,137 @@
+/* Sustainable Green Theme */
+body {
+    font-family: "Arial", sans-serif;
+    background-color: #f0f7f4; /* Soft green background */
+    color: #2f4f4f; /* Dark green text */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+h1 {
+    color: #2e7d32; /* Deep green */
+}
+
+/* .cart-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    background: #66bb6a;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.cart-link:hover {
+    background: #388e3c;
+} */
+.cart-link {
+    margin-left: auto; /* Push it to the right */
+    padding: 10px 15px;
+    background: #66bb6a;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.cart-link:hover {
+    background: #388e3c;
+}
+/* Cart Items */
+.cart-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.cart-item:hover {
+    transform: scale(1.02);
+}
+
+/* Image Styling */
+.image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: #e8f5e9; /* Light green */
+    border-radius: 8px;
+    width: 120px;
+    height: 120px;
+}
+
+.product-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Item Details */
+.item-details {
+    flex: 3;
+    text-align: left;
+    padding: 0 20px;
+}
+
+/* Links & Actions */
+.product-link, .delete {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.product-link {
+    background: #4caf50;
+    color: white;
+}
+
+.product-link:hover {
+    background: #2e7d32;
+}
+
+.delete {
+    background: #e57373;
+    color: white;
+}
+
+.delete:hover {
+    background: #c62828;
+}
+
+/* Empty Cart Message */
+.empty-cart {
+    color: #757575;
+    font-size: 1.2rem;
+}
+
+/* Container for top section */
+.top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+/* Move "Back to Cart" to the top-right */
+

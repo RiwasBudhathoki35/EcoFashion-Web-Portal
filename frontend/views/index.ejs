@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ecoFashion</title>
+    <link rel="stylesheet" href="/css/s_index.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Header Section -->
+
+    <header class="header">
+      <div class="logo">
+        <a href="/">ecoFashion</a>
+      </div>
+      <nav class="nav">
+        <div class="nav-links">
+          <a href="/users/add-outlet" class="nav-link">Add Your Outlet</a>
+          <% if (session_role) { %> <% if (session_role == "customers") { %>
+          <a href="/users/dashboard" class="nav-link">Dashboard</a>
+          <% } else{ %>
+          <a href="/users/suppliers/dashboard" class="nav-link">Dashboard</a>
+          <% } %> <% } %> <% if (authenticated_user) { %>
+          <a href="/users/logout" class="nav-link">logout</a>
+          <h2 class="nav-link"><%= ecoScore %> ecoScore</h2>
+          <% } else { %>
+          <a href="/users/login" class="nav-link">Login</a>
+          <a href="/users/register" class="nav-link">Signup</a>
+          <% } %>
+        </div>
+        <div class="search-bar">
+          <form id="search-form" action="/search" method="POST">
+            <input
+              type="text"
+              name="search"
+              placeholder="Search products..."
+              required
+            />
+            <button type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+    </header>
+    <!-- Full-Page Site Title -->
+    <section class="site-title">
+      <p>A pool on many varieties of sustainable fashion</p>
+    </section>
+
+    <!-- New Section: EcoScores Information -->
+    <section class="eco-info">
+      <h1>Track your sustainable practices with ecoScores.</h1>
+      <p class="eco-desc">
+        The ecoScore is a representation of your contribution to eco-friendly
+        fashion practices for both consumers and suppliers. The more you
+        consume, the more benefits you get with ecoScores, and the more you
+        produce, the more public attraction you receive.
+      </p>
+    </section>
+
+    <!-- Product Grid -->
+    <%- include('./partials/main_fetch.ejs') %>
+  </body>
+</html>

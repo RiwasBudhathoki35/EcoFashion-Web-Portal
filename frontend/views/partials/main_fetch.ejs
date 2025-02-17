@@ -1,0 +1,20 @@
+<main class="main-content">
+  <div id="product-grid" class="product-grid">
+    <% if (users.length > 0) { %> <% users.forEach(user => { %>
+    <a href="/users/product/<%= user.id %>">
+      <div class="product-card">
+        <h3 class="eco-score">EcoScore: <%= user.ecoScore %></h3>
+        <img
+          src="<%= user.imageUrl %>"
+          alt="Product Image"
+          class="product-image"
+        />
+        <p class="product-desc"><%= user.desc %></p>
+        <h3 class="product-price">Price: Rs.<%= user.price %></h3>
+      </div>
+    </a>
+    <% }) %> <% } else { %>
+    <p>No products found</p>
+    <% } %>
+  </div>
+</main>

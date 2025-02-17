@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>navigation bar</title>
+    <link rel="stylesheet" href="s_dashboard.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">
+        <a href="/">ecoFashion</a>
+      </div>
+      <nav class="nav">
+        <p id="ecoScore"><%= ecoScore %> ecoScore</p>
+        <a href="/" class="login-btn" id="home">Home</a>
+        <a href="/users/cart" class="login-btn" id="cart">Cart</a>
+        <a href="/users/logout" class="login-btn" id="logout">Logout</a>
+        <a href="/users/login" class="login-btn" id="login">Login</a>
+        <a href="/users/add-outlet" class="login-btn" id="add_outlet"
+          >Add new Outlet</a
+        >
+        <div class="search-bar">
+          <form id="search-form" action="/search" method="post">
+            <input type="text" name="search" placeholder="Search products..." />
+            <button type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+    </header>
+  </body>
+  <script src="/js/nav.js"></script>
+</html>

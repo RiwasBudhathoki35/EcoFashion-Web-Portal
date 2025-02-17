@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>test</title>
+  </head>
+  <link rel="stylesheet" href="/css/s_dashboard.css" />
+
+  <body>
+    <%- include('./partials/nav.ejs') %>
+    <h1>Test Supplier Dashbaord Success!!</h1>
+    <h2><%= ecoScore %> supplier ecoscore</h2>
+    <%= messages.success_msg %>
+    <h3>add you product</h3>
+    <form method="post" action="/upload" enctype="multipart/form-data">
+      <!-- change form type to include descrioption price and all -->
+      product name
+      <input type="text" id="name" name="name" required />
+      About the product
+      <textarea id="desc" name="desc" required></textarea>
+      product price
+      <input type="text" id="price" name="price" required />
+      product ecoScore
+      <input type="text" id="ecoScore" name="ecoScore" required />
+      product supplier<input type="text" id="supp_id" name="supp_id" required />
+      Insert product view<input type="file" name="image" />
+      <!-- desc, price, ecoScore, supp_id: repalce this with a query logic that retireves the id based on the suppleirs name
+       and flash error message when no match is found, use ILIKE to nullify the cap and small -->
+      <input type="submit" />
+    </form>
+    <a href="/">homepage</a>
+    <!-- this sends a get req to the server and the server invokes app.get('/') -->
+  </body>
+</html>

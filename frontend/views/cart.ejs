@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart</title>
+    <link rel="stylesheet" href="/css/s_cart.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Your Orders</h1>
+      <div class="cart-container">
+        <% if (orders.length > 0) { %> <% orders.forEach(order => { %>
+        <div class="order-card">
+          <h2>Order ID: <%= order.id %></h2>
+          <p><strong>Order date:</strong> <%= order.order_date %></p>
+          <p><strong>Eco Score Gained:</strong> <%= order.ecoscoregained %></p>
+          <p><strong>Total Cost:</strong> <%= order.totalcost %></p>
+          <p><strong>Shipping Address:</strong> <%= order.ship_addr %></p>
+          <p><strong>Customer ID:</strong> <%= order.customer_id %></p>
+          <p><strong>Payment Status:</strong> <%= order.payment_status %></p>
+          <div class="action-buttons">
+            <a class="btn update" href="/users/cart-update/<%= order.id %>"
+              >Update</a
+            >
+            <a class="btn checkout" href="/users/checkout/<%= order.id %>"
+              >Checkout</a
+            >
+            <a class="btn details" href="/users/cart-items/<%= order.id %>"
+              >Order Details</a
+            >
+            <a
+              class="btn delete"
+              href="#"
+              data-doc="<%= order.id %>"
+              data-endpoint="cart"
+              >Delete Cart</a
+            >
+          </div>
+        </div>
+        <% }) %> <% } else { %>
+        <p>No Cart created.</p>
+        <% } %>
+      </div>
+    </div>
+    <script src="/js/delete.js"></script>
+  </body>
+</html>

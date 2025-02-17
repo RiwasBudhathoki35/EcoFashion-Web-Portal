@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart Items</title>
+    <link rel="stylesheet" href="/css/s_cart_items.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Top Section -->
+      <div class="top-section">
+        <h1>Your Order Items</h1>
+        <a href="/users/cart" class="cart-link">Back to Cart</a>
+      </div>
+
+      <ul class="cart-list">
+        <% if (order_details.length > 0) { %> <%
+        order_details.forEach(order_detail => { %>
+        <li class="cart-item">
+          <div class="image-container">
+            <img
+              src="<%= order_detail.imageUrl %>"
+              alt="Product Image"
+              class="product-image"
+            />
+          </div>
+          <div class="item-details">
+            <p><strong>Item ID:</strong> <%= order_detail.id %></p>
+            <p><strong>Price:</strong> $<%= order_detail.unit_price %></p>
+            <p><strong>Quantity:</strong> <%= order_detail.qty %></p>
+            <a
+              href="/users/product/<%= order_detail.product_id %>"
+              class="product-link"
+            >
+              <strong>View Product</strong>
+            </a>
+          </div>
+          <div class="actions">
+            <a
+              class="delete"
+              data-doc="<%= order_detail.id %>"
+              data-endpoint="cart-item"
+            >
+              ❌ Delete Item
+            </a>
+          </div>
+        </li>
+        <% }) %> <% } else { %>
+        <p class="empty-cart">No Cart-items found</p>
+        <% } %>
+      </ul>
+    </div>
+
+    <script src="/js/delete.js"></script>
+  </body>
+</html>

@@ -1,0 +1,153 @@
+/* Basic reset to remove default margins and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Styling the body for a more consistent look */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background: #f4f4f4;
+    color: #333;
+}
+
+/* Header styling */
+.header {
+    background-color: #1c1f20;
+    color: #fff;
+    padding: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo styling */
+.logo a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-family: 'Pacifico', cursive;
+}
+
+/* Navigation styling */
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+/* EcoScore styling */
+.nav p {
+    margin-right: 2rem;
+    font-size: 1rem;
+}
+
+/* Links styling */
+.nav a {
+    color: #faf2f2; /* Plain text color */
+    text-decoration: none; /* Remove underline */
+    padding: 0; /* No padding for plain text look */
+    margin: 0 1rem; /* Add horizontal spacing between links */
+    background-color: transparent; /* Transparent background */
+    font-size: 1rem; /* Adjust font size if needed */
+    transition: color 0.3s ease; /* Smooth color change on hover */
+}
+
+.nav a:hover {
+    color: #1b8e65; /* Change text color on hover */
+    text-decoration: underline; /* Optional underline on hover */
+}
+
+
+
+/* Search bar styling */
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+}
+
+.search-bar input[type="text"] {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+}
+
+.search-bar button {
+    padding: 0.5rem;
+    border: none;
+    background-color: #fff;
+    color: #333;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+/* Replace "Search" text with search icon */
+.search-bar button::before {
+    content: "\1F50D"; /* Unicode for magnifying glass */
+    font-size: 1rem;
+}
+
+/* Main content styling */
+.main-content {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Site title styling */
+.site-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+/* Product Grid */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+  }
+  
+  .product-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .product-card img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .product-card .eco-score {
+    font-size: 1.1rem;
+    color: #228b22;
+    margin: 1rem 0;
+  }
+  
+  .product-card .product-desc {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 1rem 0;
+  }
+  
+  .product-card .product-price {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #000;
+    margin: 1rem 0;
+  }
+  

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/s_login.css" />
+    <!-- Link to CSS file -->
+  </head>
+  <body>
+    <div class="container">
+      <div class="login-box">
+        <div class="close-button">
+          <a href="/" title="Close (Go to Homepage)">×</a>
+        </div>
+        <div class="logo-container">
+          <img src="../logo.png" alt="ecoFashion" class="logo" />
+          <!-- Placeholder for logo image -->
+        </div>
+        <h1 font>Sustainable Style, Every Mile.</h1>
+        <ul>
+          <% if(messages.success_msg) { %>
+          <li class="success"><%= messages.success_msg %></li>
+          <% } %>
+        </ul>
+        <ul>
+          <% if(messages.error) { %>
+          <li class="error"><%= messages.error %></li>
+          <% } %>
+        </ul>
+        <form action="/users/login" method="post">
+          <div class="input-group">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Email"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+          <label for="option1">
+            <input type="radio" name="options" value="customers" checked />
+            Consumer Role</label
+          >
+          <label for="option2">
+            <input type="radio" name="options" value="suppliers" />
+            Supplier Role</label
+          >
+          <div>
+            <input type="submit" value="Log In" class="btn" />
+          </div>
+          <a href="/users/register" class="register-link">Register here</a>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

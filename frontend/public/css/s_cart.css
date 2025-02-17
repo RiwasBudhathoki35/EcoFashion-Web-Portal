@@ -1,0 +1,176 @@
+/* General styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-image: url('../sustainable_orders.jpg'); /* Background image for the webpage */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Heading */
+h1 {
+  text-align: center;
+  font-size: 2.5em;
+  color: #4CAF50;
+  margin-top: 40px;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Cart Section */
+.cart-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Order Card with Wooden Background */
+.order-card {
+  background-image: url('../wooden.jpg'); /* Background image for order box */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: multiply; /* Blend with the background color */
+  background-color: rgba(255, 255, 255, 0.8); /* Light overlay for readability */
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+  max-width: 350px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+}
+
+.order-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.order-card h2 {
+  font-size: 1.6em;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.order-card p {
+  font-size: 1em;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+strong {
+  color: #333;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+a.btn {
+  display: inline-block;
+  padding: 12px 25px;
+  text-decoration: none;
+  font-weight: bold;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+a.btn.update {
+  background-color: #c8f81e;
+}
+
+a.btn.update:hover {
+  background-color: #d6e789;
+}
+
+a.btn.checkout {
+  background-color: #65eb63;
+}
+
+a.btn.checkout:hover {
+  background-color: #65e40b;
+}
+
+a.btn.details {
+  background-color: #3a3a3c;
+}
+
+a.btn.details:hover {
+  background-color: #025aa5;
+}
+
+a.btn.delete {
+  background-color: #854a47;
+}
+
+a.btn.delete:hover {
+  background-color: #c9302c;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .order-card {
+      width: 100%;
+  }
+}
+
+/* Bill Summary Section */
+.bill-summary {
+  background-color: #2ecc71;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bill-item {
+  font-size: 1.2em;
+}
+
+/* Action Links */
+.action-links {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+a.view-orders,
+a.continue-shopping {
+  padding: 15px 30px;
+  text-decoration: none;
+  color: white;
+  background-color: #0275d8;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+a.view-orders:hover,
+a.continue-shopping:hover {
+  background-color: #025aa5;
+}

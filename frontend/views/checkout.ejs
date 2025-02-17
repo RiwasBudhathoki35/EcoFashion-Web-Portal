@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout</title>
+    <link rel="stylesheet" href="/css/s_checkout.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <a href="/" class="logo">EcoFashion</a>
+      <h1 class="nav-title">Payment Summary</h1>
+      <a href="/users/cart" class="cart-link">
+        <img src="/cart-icon.png" alt="Cart" class="cart-icon" />
+        <p id="cart">CART</p>
+      </a>
+    </header>
+
+    <div class="container">
+      <section class="card order-details">
+        <h2>Order Description</h2>
+        <% if (messages.error) { %>
+        <p class="error"><%= messages.error %></p>
+        <% } %> <% if (messages.success_msg) { %>
+        <p class="success"><%= messages.success_msg %></p>
+        <% } %>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Price (Rs.)</th>
+              <th>Eco Score</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% order_details.forEach(order => { %>
+            <tr>
+              <td><%= order.description %></td>
+              <td>Rs. <%= order.price %></td>
+              <td><%= order.ecoscore %></td>
+              <td><%= order.qty %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="card cost-summary">
+        <h2>Summary</h2>
+        <p><strong>Total Cost:</strong> Rs. <%= check.totalcost %></p>
+        <p><strong>Eco Score Gained:</strong> <%= check.ecoscoregained %></p>
+        <p><strong>Payment Status:</strong> <%= check.payment_status %></p>
+      </section>
+
+      <section class="card payment-options">
+        <h2>Payment Options</h2>
+        <button onclick="payWithKhalti()">Pay with Khalti</button>
+        <a href="/simulate-pay/<%= check.id %>" class="simulate-btn"
+          >Simulate Payment</a
+        >
+      </section>
+    </div>
+
+    <script src="https://khalti.com/static/khalti-checkout.js"></script>
+    <script>
+      var config = {
+        publicKey: "d6a3d6e37e8f40c18f119fca48aec723",
+        productIdentity: "1234567890",
+        productName: "Order Payment",
+        productUrl: "http://localhost:3000",
+        paymentPreference: ["KHALTI"],
+        eventHandler: {
+          onSuccess(payload) {
+            console.log("Payment successful:", payload);
+            fetch("/users/khalti-verify", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            })
+              .then((res) => res.json())
+              .then((data) => alert(data.message));
+          },
+          onError(error) {
+            console.log("Payment error:", error);
+          },
+        },
+      };
+
+      var checkout = new KhaltiCheckout(config);
+      function payWithKhalti() {
+        checkout.show({ amount: 50000 });
+      }
+    </script>
+  </body>
+</html>
+
+<!-- <button id="khalti-button">Pay with Khalti</button>
+
+    <script>
+      // Check if KhaltiCheckout is available
+      if (typeof KhaltiCheckout === "undefined") {
+        console.log("KhaltiCheckout is not available");
+      } else {
+        console.log("KhaltiCheckout is available");
+      }
+
+      const khaltiConfig = {
+        publicKey: "your_sandbox_public_key", // Use your test public key here
+        productIdentity: "123456",
+        productName: "Test Product",
+        productUrl: "https://your-website.com/product/123", // Replace with your product URL
+        paymentPreference: [
+          "KHALTI",
+          "EBANKING",
+          "MOBILE_BANKING",
+          "CONNECT_IPS",
+        ], // Optional payment methods
+      };
+
+      const checkout = new KhaltiCheckout(khaltiConfig);
+
+      // Function to handle the click event on the Khalti button
+      document.getElementById("khalti-button").onclick = function () {
+        console.log("Button clicked"); // Log the button click
+        checkout.show({ amount: 1000 }); // Amount in paisa (1000 paisa = 10 NPR)
+      };
+
+      // Payment Success Callback
+      khaltiConfig.paymentSuccess = function (data) {
+        console.log("Payment Success:", data);
+        alert("Payment successful!");
+      };
+
+      // Payment Failure Callback
+      khaltiConfig.paymentFailure = function (error) {
+        console.log("Payment Failure:", error);
+        alert("Payment failed!");
+      };
+    </script> -->
+<!-- </body>
+</html> -->
