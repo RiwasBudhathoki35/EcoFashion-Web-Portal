@@ -4,7 +4,6 @@ body {
     background-color: #f0f7f4; /* Soft green background */
     color: #2f4f4f; /* Dark green text */
     margin: 0;
-    padding: 0;
 }
 
 .container {
@@ -17,20 +16,6 @@ h1 {
     color: #2e7d32; /* Deep green */
 }
 
-/* .cart-link {
-    display: inline-block;
-    margin-bottom: 20px;
-    padding: 10px 15px;
-    background: #66bb6a;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background 0.3s ease;
-}
-
-.cart-link:hover {
-    background: #388e3c;
-} */
 .cart-link {
     margin-left: auto; /* Push it to the right */
     padding: 10px 15px;

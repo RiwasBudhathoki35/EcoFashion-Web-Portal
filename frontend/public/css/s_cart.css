@@ -5,6 +5,8 @@
   box-sizing: border-box;
 }
 
+
+
 body {
   font-family: 'Arial', sans-serif;
   background-image: url('../sustainable_orders.jpg'); /* Background image for the webpage */
@@ -14,6 +16,7 @@ body {
   background-repeat: no-repeat;
   color: #333;
   line-height: 1.6;
+  padding: 10px;
 }
 
 /* Heading */
@@ -90,22 +93,23 @@ a.btn {
   padding: 12px 25px;
   text-decoration: none;
   font-weight: bold;
-  color: white;
+  color:  rgb(5, 78, 151);
   border-radius: 5px;
   text-align: center;
   transition: background-color 0.3s ease;
 }
 
-a.btn.update {
+/* a.btn.update {
   background-color: #c8f81e;
-}
+} */
 
 a.btn.update:hover {
   background-color: #d6e789;
 }
 
 a.btn.checkout {
-  background-color: #65eb63;
+  /* background-color: #65eb63; */
+  color: green;
 }
 
 a.btn.checkout:hover {
@@ -113,7 +117,8 @@ a.btn.checkout:hover {
 }
 
 a.btn.details {
-  background-color: #3a3a3c;
+  color: green;
+  /* background-color: #3a3a3c; */
 }
 
 a.btn.details:hover {
@@ -121,11 +126,12 @@ a.btn.details:hover {
 }
 
 a.btn.delete {
-  background-color: #854a47;
+  /* background-color: #854a47; */
+  color: black;
 }
 
 a.btn.delete:hover {
-  background-color: #c9302c;
+  background-color: #934542;
 }
 
 /* Responsive Design */
@@ -174,3 +180,5 @@ a.view-orders:hover,
 a.continue-shopping:hover {
   background-color: #025aa5;
 }
+
+

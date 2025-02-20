@@ -5,10 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cart</title>
     <link rel="stylesheet" href="/css/s_cart.css" />
+    <link rel="stylesheet" href="/css/flash-box.css" />
+    <link rel="stylesheet" href="/css/s_navCart.css" />
   </head>
   <body>
+    <%- include('./partials/cart_nav.ejs') %>
+    <div id="flash-message-box" class="show" style="display: none">
+      Welcome user
+    </div>
     <div class="container">
-      <h1>Your Orders</h1>
+      <!-- <h1>Your Orders</h1> -->
       <div class="cart-container">
         <% if (orders.length > 0) { %> <% orders.forEach(order => { %>
         <div class="order-card">

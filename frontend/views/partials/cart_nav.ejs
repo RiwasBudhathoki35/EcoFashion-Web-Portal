@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart-NAV</title>
+  </head>
+  <body>
+    <header class="navbar">
+      <a href="/" class="logo">EcoFashion</a>
+      <h1 class="nav-title">Payment Summary</h1>
+      <a href="/users/cart" class="cart-link">
+        <img src="/cart-icon.png" alt="Cart" class="cart-icon" />
+        <p id="cart">CART</p>
+      </a>
+    </header>
+  </body>
+  <script>
+    const title = document.querySelector(".nav-title");
+    const currentPath = window.location.pathname;
+    if (currentPath == "/users/cart") {
+      title.innerText = "Your Cart";
+    } else if (currentPath.includes("/users/cart-items/")) {
+      title.innerText = "Cart Items";
+    }
+  </script>
+</html>

@@ -41,6 +41,7 @@ app.use(
     saveUninitialized: false,
   })
 );
+//Using the sessions deserializer we can access all the users data via req.user at any time. the session data can also be accessed through here
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -54,7 +55,7 @@ app.get("/session-status", (req, res) => {
   }
 });
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
   const session_role = req.user ? req.user.role : null;
   //const session_role = req.session ? req.session.passport.user.role : null;
   const authenticated_user = req.isAuthenticated();
@@ -103,6 +104,43 @@ app.get("/", (req, res) => {
     }
   });
 });
+
+//Test sections//
+// const sharp = require("sharp");
+// app.get("/test-image", (req, res) => {
+//   pool.query(`select image from products`, async (err, results) => {
+//     if (err) {
+//       console.log(err);
+//       res.send("error quering the database");
+//     }
+
+//     const users = await Promise.all(
+//       results.rows.map(async (user) => {
+//         const imageBuffer = user.image;
+//         let imageUrl = null;
+
+//         if (imageBuffer) {
+//           // Resize & Crop the Image (200x200 pixels, centered)
+//           const processedImage = await sharp(imageBuffer)
+//             .resize(200, 200, {
+//               fit: "cover", // Crops while keeping aspect ratio
+//               position: "center", // Keeps focus on the center
+//             })
+//             .toBuffer(); // Convert to buffer
+
+//           const base64Image = processedImage.toString("base64");
+//           imageUrl = `data:image/jpeg;base64,${base64Image}`;
+//         }
+
+//         return {
+//           imageUrl,
+//         };
+//       })
+//     );
+//     res.render("test", { users });
+//   });
+// });
+//end of test section
 
 app.get("/users/dashboard", checkNotAuthenticated, (req, res) => {
   //console.log(req.session);
@@ -165,10 +203,9 @@ app.get("/users/register", checkAuthenticated, (req, res) => {
 
 app.get("/users/product/:id", async (req, res) => {
   console.log("Inside product route");
-  console.log("Raw request params:", req.params);
-
   const rawID = req.params.id;
   const ecoScore = req.user ? req.user.ecoscore : 0;
+  console.log(ecoScore);
   const order_id = req.user ? req.user.order_id : 4;
   //const order_id = req.user.order_id;
 
@@ -181,20 +218,24 @@ app.get("/users/product/:id", async (req, res) => {
   console.log("Decoded ID:", id);
 
   // Safe query using parameterized SQL to prevent SQL injection
-  const query = "SELECT * FROM products WHERE id = $1";
+  const query = `select p.id, p.image, p.description, p.price, p.ecoScore, p.supp_id, s.ecoScore as s_ecoScore
+                 from products p
+                 join suppliers s on s.id = p.supp_id
+                 where p.id = $1`;
   pool.query(query, [id], (err, result) => {
     if (err) {
-      console.error("Error in database query:", err);
+      console.error(err);
       return res.redirect("/");
     }
 
     //console.log("Query Result:", result);
 
     if (result.rows.length > 0) {
-      const user = result.rows[0];
-      console.log("Inside of product");
+      const product = result.rows[0];
+      console.log("product details: ");
+      console.log(product);
       //console.log(user);
-      const imageBuffer = user.image;
+      const imageBuffer = product.image;
       let imageUrl = null;
 
       if (imageBuffer) {
@@ -202,7 +243,7 @@ app.get("/users/product/:id", async (req, res) => {
         imageUrl = `data:image/jpeg;base64,${base64Image}`;
       }
 
-      return res.render("product", { user, imageUrl, ecoScore, order_id });
+      return res.render("product", { product, imageUrl, ecoScore, order_id });
     } else {
       console.log("No product found");
       return res.status(404).send("Product not found");
@@ -651,6 +692,7 @@ app.post("/search", (req, res) => {
   });
 });
 
+//receive order items from product page and process the order
 app.post(
   "/users/order/:id",
   checkNotAuthenticated,
@@ -757,40 +799,7 @@ app.post("/payment-success", async (req, res) => {
   }
 });
 
-app.delete("/users/cart-item/:id", async (req, res, next) => {
-  const id = req.params.id;
-  console.log("Deleting order item with ID:", id);
-
-  // First, retrieve the order_id before deleting the item
-  const getOrderQuery = `SELECT order_id FROM order_item WHERE id = $1`;
-
-  try {
-    const orderResult = await pool.query(getOrderQuery, [id]);
-
-    if (orderResult.rowCount === 0) {
-      return res.status(404).json({ message: "Item not found." });
-    }
-
-    const order_id = orderResult.rows[0].order_id;
-
-    const deleteQuery = `DELETE FROM order_item WHERE id = $1`;
-    await pool.query(deleteQuery, [id]);
-
-    console.log(`Item with ID ${id} deleted.`);
-
-    // Call the update function with order_id
-    await update(order_id);
-
-    res.json({
-      message: `Item with ID ${id} has been deleted.`,
-      redirect: "/users/cart",
-    });
-  } catch (err) {
-    console.error("Error deleting item:", err);
-    return res.status(500).json({ message: "Failed to delete item." });
-  }
-});
-
+//Update function to update the Default orderid created at beginning of session with new data
 async function update(order_id) {
   const totalCostQuery = `
     SELECT COALESCE(SUM(oi.unit_price::INTEGER * oi.qty::INTEGER), 0) AS total_cost
@@ -830,6 +839,40 @@ async function update(order_id) {
   }
 }
 
+app.delete("/users/cart-item/:id", async (req, res, next) => {
+  const id = req.params.id;
+  console.log("Deleting order item with ID:", id);
+
+  // First, retrieve the order_id before deleting the item
+  const getOrderQuery = `SELECT order_id FROM order_item WHERE id = $1`;
+
+  try {
+    const orderResult = await pool.query(getOrderQuery, [id]);
+
+    if (orderResult.rowCount === 0) {
+      return res.status(404).json({ message: "Item not found." });
+    }
+
+    const order_id = orderResult.rows[0].order_id;
+
+    const deleteQuery = `DELETE FROM order_item WHERE id = $1`;
+    await pool.query(deleteQuery, [id]);
+
+    console.log(`Item with ID ${id} deleted.`);
+
+    // Call the update function with order_id
+    await update(order_id);
+
+    res.json({
+      message: `Item with ID ${id} has been deleted.`,
+      redirect: `/users/cart-items/${order_id}`,
+    });
+  } catch (err) {
+    console.error("Error deleting item:", err);
+    return res.status(500).json({ message: "Failed to delete item." });
+  }
+});
+
 app.delete("/users/cart/:id", async (req, res) => {
   const id = req.params.id;
   console.log("id: in delete cart: ", id);
@@ -862,6 +905,7 @@ app.delete("/users/cart/:id", async (req, res) => {
   }
 });
 
+//To verify role of the user(Must be a customer to purchase and access customer dashboard)
 function isCustomer(req, res, next) {
   console.log("isCustomer checking.");
   const customer_check = req.user.role;
@@ -881,6 +925,7 @@ function isCustomer(req, res, next) {
   }
 }
 
+//If authenticated redirect from login and register
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return res.redirect("/");
@@ -888,6 +933,7 @@ function checkAuthenticated(req, res, next) {
   next();
 }
 
+//If not authenticated then redirect to login portal
 function checkNotAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();

@@ -1,0 +1,74 @@
+/* .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #212121;
+    padding: 15px 20px;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  } */
+  
+  .logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    text-decoration: none;
+    font-family: 'Pacifico', cursive;
+    color: white;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #212121;
+    padding: 10px 20px; /* Reduced padding */
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    height: auto;
+    min-height: 60px; /* Ensures it's not too tall */
+  }
+  
+  .nav-title {
+    flex: 1;
+    text-align: center;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    font-size: 1.5em; /* Adjust as needed */
+ /* Optional: Adjust if it's too bold */
+  }
+  
+  
+  
+  .cart-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+  }
+  
+  
+  
+  .cart-icon {
+    width: 30px;
+    height: 30px;
+  }
+  
+  #cart {
+    text-decoration: none; /* Remove underline */
+    font-size: 1em;
+    font-weight: bold;
+    color: white; /* Adjust color as needed */
+    margin-left: 5px;
+    transition: color 0.3s ease; /* Smooth hover effect */
+  }
+  
+  #cart:hover {
+    color: #ffcc00; /* Change color on hover */
+  }

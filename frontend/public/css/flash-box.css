@@ -1,0 +1,29 @@
+#flash-message-box {
+  position: fixed;
+  top: 20%;
+  left: 13.5%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(76, 175, 80, 0.5);  /* Green with 80% opacity */
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(189, 31, 31, 0.1);
+  font-size: 18px;
+  z-index: 1000;
+  display: none;
+}
+
+/* Optional: Add fade-in effect */
+#flash-message-box.show {
+  display: block;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}

@@ -12,7 +12,14 @@ trashcans.forEach((trashcan) => {
     })
       .then((response) => response.json()) // Parse JSON response
       .then((data) => {
-        window.location.href = data.redirect; // Redirect after successful delete
+        const flashMessageBox = document.getElementById("flash-message-box");
+        if (data.message) {
+          flashMessageBox.innerText = data.message;
+          flashMessageBox.style.display = "block";
+        }
+        setTimeout(() => {
+          window.location.href = data.redirect; // redirect after successful delete after displaying the flash
+        }, 1000);
       })
       .catch((err) => console.log(err));
   });

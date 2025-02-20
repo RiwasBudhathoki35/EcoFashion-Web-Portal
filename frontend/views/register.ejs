@@ -43,14 +43,17 @@
           name="confirm_password"
           required
         />
-        <label for="option1">
-          <input type="radio" name="options" value="customers" cheked />
-          Consumer Role</label
-        >
-        <label for="option2">
-          <input type="radio" name="options" value="suppliers" />
-          Supplier Role</label
-        >
+        <div class="role-options">
+          <label>
+            <input type="radio" name="options" value="customers" checked />
+            Consumer Role
+          </label>
+          <label>
+            <input type="radio" name="options" value="suppliers" />
+            Supplier Role
+          </label>
+        </div>
+
         <button type="submit">Create Account</button>
         <div class="login-link">
           <a href="/users/login">Already registered? Login here</a>

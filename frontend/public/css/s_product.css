@@ -1,0 +1,107 @@
+/* General container for the product display */
+.product-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px; /* Space between image and details */
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Image container */
+  .image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .product-image {
+    max-width: 400px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Product details section */
+  .product-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+    max-width: 500px;
+  }
+  
+  /* Supplier and Product EcoScore */
+  .supplier-ecoscore,
+  .product-ecoscore {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #2ecc71; /* Green color */
+  }
+  
+  /* Product Description */
+  .product-description {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Product Price */
+  .product-price {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  /* Order Form */
+  .order-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .order-form input {
+    width: 80px;
+    padding: 8px;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Submit Order Button */
+  .order-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .order-btn:hover {
+    background-color: #45a049;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .product-container {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .image-container {
+      margin-bottom: 20px;
+    }
+  
+    .product-details {
+      align-items: center;
+    }
+  }
+  

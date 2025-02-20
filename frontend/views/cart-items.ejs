@@ -5,8 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cart Items</title>
     <link rel="stylesheet" href="/css/s_cart_items.css" />
+    <link rel="stylesheet" href="/css/flash-box.css" />
+    <link rel="stylesheet" href="/css/s_navCart.css" />
   </head>
   <body>
+    <%- include('./partials/cart_nav.ejs') %>
+    <div id="flash-message-box" class="show" style="display: none">
+      Welcome user
+    </div>
     <div class="container">
       <!-- Top Section -->
       <div class="top-section">

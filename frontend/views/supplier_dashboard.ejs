@@ -3,33 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>test</title>
+    <title>Supplier Dashboard</title>
+    <link rel="stylesheet" href="/css/s_nav.css" />
+    <link rel="stylesheet" href="/css/s_supplier.css" />
   </head>
-  <link rel="stylesheet" href="/css/s_dashboard.css" />
 
   <body>
     <%- include('./partials/nav.ejs') %>
-    <h1>Test Supplier Dashbaord Success!!</h1>
-    <h2><%= ecoScore %> supplier ecoscore</h2>
-    <%= messages.success_msg %>
-    <h3>add you product</h3>
-    <form method="post" action="/upload" enctype="multipart/form-data">
-      <!-- change form type to include descrioption price and all -->
-      product name
-      <input type="text" id="name" name="name" required />
-      About the product
-      <textarea id="desc" name="desc" required></textarea>
-      product price
-      <input type="text" id="price" name="price" required />
-      product ecoScore
-      <input type="text" id="ecoScore" name="ecoScore" required />
-      product supplier<input type="text" id="supp_id" name="supp_id" required />
-      Insert product view<input type="file" name="image" />
-      <!-- desc, price, ecoScore, supp_id: repalce this with a query logic that retireves the id based on the suppleirs name
-       and flash error message when no match is found, use ILIKE to nullify the cap and small -->
-      <input type="submit" />
-    </form>
-    <a href="/">homepage</a>
-    <!-- this sends a get req to the server and the server invokes app.get('/') -->
+
+    <div class="dashboard-container">
+      <!-- <h1 class="success-message">Test Supplier Dashboard Success!!</h1> -->
+      <h2 class="ecoscore">Your EcoScore: <%= ecoScore %></h2>
+      <%= messages.success_msg %>
+
+      <div class="form-container">
+        <h3>Add Your Product</h3>
+        <form method="post" action="/upload" enctype="multipart/form-data">
+          <label for="name">Product Name</label>
+          <input type="text" id="name" name="name" required />
+
+          <label for="desc">About the Product</label>
+          <textarea id="desc" name="desc" required></textarea>
+
+          <label for="price">Product Price</label>
+          <input type="text" id="price" name="price" required />
+
+          <label for="ecoScore">Product EcoScore</label>
+          <input type="text" id="ecoScore" name="ecoScore" required />
+
+          <label for="supp_id">Product Supplier</label>
+          <input type="text" id="supp_id" name="supp_id" required />
+
+          <label for="image" class="file-label">Insert Product Image</label>
+          <input type="file" name="image" id="image" class="file-input" />
+
+          <button type="submit" class="submit-btn">Upload Product</button>
+        </form>
+      </div>
+
+      <a href="/" class="homepage-link">Go to Homepage</a>
+    </div>
   </body>
 </html>

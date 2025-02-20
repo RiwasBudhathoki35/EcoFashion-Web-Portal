@@ -13,60 +13,7 @@ body {
   padding: 10px;
 }
 
-/* Navbar */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #212121;
-  padding: 15px 20px;
-  color: white;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.logo {
-  font-size: 1.8em;
-  font-weight: bold;
-  text-decoration: none;
-  font-family: 'Pacifico', cursive;
-  color: white;
-}
-
-.nav-title {
-  font-size: 1.5em;
-  font-weight: bold;
-  text-align: center;
-  flex-grow: 1;
-}
-
-.cart-link {
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-
-.cart-icon {
-  width: 30px;
-  height: 30px;
-}
-
-#cart {
-  text-decoration: none; /* Remove underline */
-  font-size: 1em;
-  font-weight: bold;
-  color: white; /* Adjust color as needed */
-  margin-left: 5px;
-  transition: color 0.3s ease; /* Smooth hover effect */
-}
-
-#cart:hover {
-  color: #ffcc00; /* Change color on hover */
-}
-
+/* nav-bar css linked in head*?
 
 /* Page container */
 .container {

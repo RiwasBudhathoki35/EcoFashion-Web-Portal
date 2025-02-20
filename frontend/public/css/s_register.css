@@ -2,14 +2,21 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
+    /* padding: 0; */
     background: url('/background_reg.jpg') no-repeat center center;
     background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    /* height: 100vh; */
   }
+
+  body {
+    height: auto; /* Allow content to expand */
+    min-height: 50vh; /* Ensures full viewport coverage */
+    padding-top: 20px; /* Adds space at the top */
+  }
+  
   
   /* Container */
   .container {
@@ -112,3 +119,28 @@ body {
     text-decoration: underline;
   }
   
+  /* Role Selection */
+.role-options {
+  display: flex;
+  flex-direction: column; /* Stack options */
+  gap: 10px;
+  margin: 1rem 0; /* Adds spacing above and below */
+}
+
+/* Each radio button label */
+.role-options label {
+  display: flex;
+  align-items: center; /* Ensures text and radio button are aligned */
+  gap: 8px; /* Adds space between button and text */
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}
+
+/* Style for radio buttons */
+.role-options input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #83a95c; /* Custom green color */
+}

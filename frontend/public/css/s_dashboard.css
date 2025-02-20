@@ -111,43 +111,81 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     padding: 2rem;
-  }
-  
-  .product-card {
+}
+
+/* Product Card - Fixed Size */
+.product-card {
     background: #fff;
+    text-decoration: none;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-  }
-  
-  .product-card img {
-    width: 100%;
-    height: auto;
-  }
-  
-  .product-card .eco-score {
+    display: flex;
+    flex-direction: column;
+    height: 400px; /* Fixed height */
+}
+
+/* 🔥 Hover Effect */
+.product-card:hover {
+    transform: translateY(-8px); /* Slight lift */
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+}
+
+/* Ensuring all cards start at the same level */
+.image-container {
+    height: 200px; /* Fixed height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.product-card img {
+    max-height: 100%; /* Ensures it doesn’t stretch */
+    max-width: 100%; /* Keeps aspect ratio */
+    object-fit: contain; /* Ensures full image is visible */
+}
+
+/* Product Info */
+.product-info {
+    flex-grow: 1; /* Pushes price & desc to bottom */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1rem;
+}
+
+/* Eco Score */
+.product-card .eco-score {
     font-size: 1.1rem;
     color: #228b22;
     margin: 1rem 0;
-  }
-  
-  .product-card .product-desc {
+}
+
+/* Product Description */
+.product-card .product-desc {
     font-size: 0.95rem;
     color: #666;
-    margin: 1rem 0;
-  }
-  
-  .product-card .product-price {
+    margin-bottom: 0.5rem;
+}
+
+/* Product Price */
+.product-card .product-price {
     font-size: 1.1rem;
     font-weight: bold;
     color: #000;
-    margin: 1rem 0;
-  }
-  
+    margin-bottom: 1rem;
+}
+
+.product-card a {
+    text-decoration: none; /* Removes underline */
+}
+
+/* Ensure headings and paragraphs inside the link stay unstyled */
+.product-card a h3,
+.product-card a p {
+    text-decoration: none; /* Ensures no underline on child elements */
+    color: inherit; /* Keeps text color unchanged */
+}
