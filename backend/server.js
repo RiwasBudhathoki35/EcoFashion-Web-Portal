@@ -105,42 +105,22 @@ app.get("/", async (req, res) => {
   });
 });
 
-//Test sections//
-// const sharp = require("sharp");
-// app.get("/test-image", (req, res) => {
-//   pool.query(`select image from products`, async (err, results) => {
-//     if (err) {
-//       console.log(err);
-//       res.send("error quering the database");
-//     }
+app.get("/users/dashboard", checkNotAuthenticated, async (req, res) => {
+  const customer_id = req.user.id;
+  console.log("USER PROFILE");
+  const query = select sum(p.ecoScore::integer) as total_eco, sum(oi.qty::integer) as total_items
+                  from orders o 
+                  join order_item oi on o.id = oi.order_id
+                  join products p on oi.product_id = p.id
+                  where o.customer_id = $1;;
 
-//     const users = await Promise.all(
-//       results.rows.map(async (user) => {
-//         const imageBuffer = user.image;
-//         let imageUrl = null;
-
-//         if (imageBuffer) {
-//           // Resize & Crop the Image (200x200 pixels, centered)
-//           const processedImage = await sharp(imageBuffer)
-//             .resize(200, 200, {
-//               fit: "cover", // Crops while keeping aspect ratio
-//               position: "center", // Keeps focus on the center
-//             })
-//             .toBuffer(); // Convert to buffer
-
-//           const base64Image = processedImage.toString("base64");
-//           imageUrl = `data:image/jpeg;base64,${base64Image}`;
-//         }
-
-//         return {
-//           imageUrl,
-//         };
-//       })
-//     );
-//     res.render("test", { users });
-//   });
-// });
-//end of test section
+  const results = await pool.query(query, [customer_id]);
+  const summary = results.rows[0];
+  // console.log(summary);
+  // console.log(req.user);
+  const ecoScore = req.user.ecoScore;
+  res.render("customer_profile", { user: req.user, summary, ecoScore });
+});
 
 app.get("/users/dashboard", checkNotAuthenticated, (req, res) => {
   //console.log(req.session);
