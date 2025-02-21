@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <link rel="stylesheet" href="/css/profile.css" />
+    <link rel="stylesheet" href="/css/s_nav.css" />
+  </head>
+  <body>
+
+    <%- include('./partials/nav.ejs') %>
+    <div id="ecoscore" class="ecoscore">
+      Current EcoScore: <%= user.ecoscore %>
+    </div>
+    <div class = 'content-container'>
+        <div class="user-card">
+            <p><span class="label">Username:</span> <%= user.user_name %></p>
+            <p><span class="label">Email:</span> <%= user.email %></p>
+            <p><span class="label">Contact No:</span> <%= user.contact_no %></p>
+            <p><span class="label">Address:</span> <%= user.address %></p>
+          </div>
+
+          <div class="summary-card">
+            <p>
+              <span class="label">Total Items Purchased:</span> <%=
+              summary.total_items %>
+            </p>
+            <p><span class="label">Total EcoScore:</span> <%= summary.total_eco %></p>
+          </div>
+          <script>
+            const eco = document.getElementById('ecoScore');
+    eco.style.display = "none";
+
+            document.addEventListener("DOMContentLoaded", function () {
+              let ecoscore = <%= user.ecoscore %>;
+              let ecoscoreElement = document.getElementById("ecoscore");
+              if (ecoscore >= 800) {
+                ecoscoreElement.style.backgroundColor = "green";
+                ecoscoreElement.style.color = "white";
+              } else if (ecoscore >= 400) {
+                ecoscoreElement.style.backgroundColor = "orange";
+                ecoscoreElement.style.color = "white";
+              } else {
+                ecoscoreElement.style.backgroundColor = "red";
+                ecoscoreElement.style.color = "white";
+              }
+            });
+          </script>
+  </body>
+</html>
