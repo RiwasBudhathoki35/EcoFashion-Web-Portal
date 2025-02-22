@@ -1,4 +1,4 @@
-# ecoFashion Web Portal
+# ecoFashion Web Portal [Visit ecoFashion](https://ecofashion-web-portal.onrender.com)
 
 ecoFashion is an e-commerce platform designed to promote sustainable fashion by providing transparency in the production process and incentivizing eco-friendly choices. Developed as part of a course project by Riwas Budhathoki and Ashlim Tamang from the **Department of Electronics and Computer Engineering, Thapathali Campus, IOE, Nepal**, this platform aims to foster sustainability in the fashion industry through its innovative features.
 
@@ -86,3 +86,79 @@ Make sure you have the following installed:
 ```bash
 git clone https://github.com/RiwasBudhathoki35/EcoFashion-Web-Portal.git
 cd EcoFashion-Web-Portal
+````
+### Install Dependencies
+```bash
+npm install
+```
+
+### Environment Variables
+Create a .env file in the root directory and add the following environment variables:
+```bash
+PORT=10000
+DB_USER=project
+DB_PASSWORD=your_database_password
+DB_HOST=dpg-cus2rigfnakc73euhhjg-a.oregon-postgres.render.com
+DB_PORT=5432
+DB_DATABASE=ecofashion
+SESSION_SECRET=your_secret_key
+```
+
+### Database Configuration
+#### Setting Up PostgreSQL
+If running locally, create the database:
+```bash
+psql -U postgres
+CREATE DATABASE ecofashion;
+```
+Run migrations if applicable.
+
+#### Running the Application
+```bash
+npm start
+```
+
+#### Deployment on Render
+1. Push the latest code to GitHub:
+      ```bash
+   git add .
+   git commit -m "Deploying updates"
+   git push origin main
+   ```
+2. Go to Render
+3. Create a new Web Service
+4. Select the repository
+5. Set the root directory as backend/
+6. Use the build command:
+   ```bash
+   npm install
+   ```
+7. Stat command
+   ```bash
+   node server.js
+   ```
+   
+## API Endpoints
+
+| Method | Endpoint     | Description      |
+|--------|--------------|------------------|
+| GET    | /            | Home Page        |
+| GET    | /profile     | User Profile     |
+| POST   | /login       | User Login       |
+| POST   | /register    | User Registration|
+| GET    | /products    | Fetch Products   |
+| POST   | /order       | Place Order      |
+
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch (feature-branch).
+3. Commit your changes.
+4. Push to your fork and submit a pull request.
+
+## License
+
+This project is licensed under the MIT License.
+
