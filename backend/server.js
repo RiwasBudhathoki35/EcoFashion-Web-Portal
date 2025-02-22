@@ -470,8 +470,10 @@ app.get(
         [order_id, "completed"]
       );
       if (status.rows.length > 0) {
-        await client.query("ROLLBACK");
+        await client.query("ROLLBACK"); //rollback tranaction of status is already completed
         // client.release();
+        req.flash("error", "Payment has already been completed.");
+
         return res.redirect(`/users/checkout/${order_id}`);
       }
       await client.query(update_orders, [order_id]);
@@ -497,6 +499,98 @@ app.get(
       await client.query("ROLLBACK"); // 🔹 Rollback if anything fails
       console.error("Transaction failed: ", err);
       res.status(500).send("An error occurred, transaction rolled back");
+    } finally {
+      client.release(); // Release client back to pool
+    }
+  }
+);
+
+app.get(
+  "/ecoScore/simulate-pay/:order_id",
+  checkNotAuthenticated,
+  isCustomer,
+  async (req, res) => {
+    const order_id = req.params.order_id;
+
+    const update_orders = `UPDATE orders SET payment_status = 'completed' WHERE id = $1`;
+    const update_cus_ecoScore = `
+      UPDATE customers c
+      SET ecoScore = COALESCE(NULLIF(c.ecoScore, '')::INTEGER, 0) 
+                    - COALESCE(NULLIF(o.totalCost, '')::INTEGER, 0)
+      FROM orders o
+      WHERE c.id = o.customer_id AND o.id = $1 AND o.payment_status = 'completed'`;
+
+    const update_supp_ecoScore = `
+      UPDATE suppliers s
+      SET ecoScore = COALESCE(CAST(s.ecoScore AS INTEGER), 0) + COALESCE(CAST(p.ecoScore AS INTEGER), 0) * $1
+      FROM products p
+      WHERE s.id = p.supp_id AND p.id = $2;`;
+
+    const select_supplier = `SELECT qty, product_id FROM order_item WHERE order_id = $1`;
+    const checkEcoScore = `
+      SELECT c.ecoScore, o.totalCost 
+      FROM customers c
+      JOIN orders o ON c.id = o.customer_id
+      WHERE o.id = $1
+    `;
+
+    const client = await pool.connect(); // establish a pool connectioncl
+
+    try {
+      await client.query("BEGIN"); //form a transaction
+
+      // Check if payment is already completed
+      const status = await client.query(
+        `SELECT payment_status FROM orders WHERE id = $1 AND payment_status = $2`,
+        [order_id, "completed"]
+      );
+      if (status.rows.length > 0) {
+        await client.query("ROLLBACK"); // rollback if user initiates tranasction by mistake
+        req.flash("error", "Payment has already been completed.");
+        return res.redirect(`/users/checkout/${order_id}`);
+      }
+
+      // Check if customer's ecoScore is sufficient
+      const ecoScoreResult = await client.query(checkEcoScore, [order_id]);
+      if (ecoScoreResult.rows.length > 0) {
+        const { ecoScore, totalCost } = ecoScoreResult.rows[0];
+
+        if (ecoScore < totalCost) {
+          await client.query("ROLLBACK"); //rollback if ecoscore < totalcost
+          req.flash("error", "Insufficient ecoScore to complete the purchase.");
+          return res.redirect(`/users/checkout/${order_id}`);
+        }
+      }
+
+      // Update order status to completed
+      await client.query(update_orders, [order_id]);
+
+      // Fetch supplier-related data
+      const results = await client.query(select_supplier, [order_id]);
+
+      if (results.rows.length > 0) {
+        for (const supp of results.rows) {
+          const qty = supp.qty;
+          const product_id = supp.product_id;
+
+          await client.query(update_supp_ecoScore, [qty, product_id]);
+        }
+      }
+
+      // Update customer ecoScore after all supplier updates
+      await client.query(update_cus_ecoScore, [order_id]);
+
+      await client.query("COMMIT");
+      req.flash(
+        "success",
+        "Payment successful! Your ecoScore has been updated."
+      );
+      res.redirect(`/users/checkout/${order_id}`);
+    } catch (err) {
+      await client.query("ROLLBACK"); // 🔹 Rollback if anything fails
+      console.error("Transaction failed: ", err);
+      req.flash("error", "An error occurred, transaction rolled back.");
+      res.redirect(`/users/checkout/${order_id}`);
     } finally {
       client.release(); // Release client back to pool
     }
