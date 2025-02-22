@@ -122,13 +122,66 @@ app.get("/users/dashboard", checkNotAuthenticated, async (req, res) => {
   res.render("customer_profile", { user: req.user, summary, ecoScore });
 });
 
-app.get("/users/suppliers/dashboard", checkNotAuthenticated, (req, res) => {
-  console.log("user data");
-  console.log(req.user);
-  const ecoScore = req.user.ecoscore;
-  console.log(req.user);
-  res.render("supplier_dashboard", { ecoScore });
-});
+// app.get("/users/dashboard", checkNotAuthenticated, (req, res) => {
+//   //console.log(req.session);
+//   console.log("user data: ");
+//   console.log(req.user); //froms session i think// is it deserializing?
+//   const ecoScore = req.user.ecoscore;
+//   const query = `SELECT p.id, p.description, p.price, p.ecoscore, p.image, s.ecoscore as s_ecoscore
+//                 FROM products p
+//                 INNER JOIN suppliers s ON p.supp_id = s.id`;
+//   pool.query(query, (err, result) => {
+//     if (err) {
+//       console.log("error fetching images: ", err);
+//       return res.status(500).send("Error retrieving image");
+//     }
+//     if (result.rows.length > 0) {
+//       //Mapping all rows to new users array
+//       const users = result.rows.map((user) => {
+//         const imageBuffer = user.image;
+//         let imageUrl = null;
+//         if (imageBuffer) {
+//           const base64Image = imageBuffer.toString("base64");
+//           imageUrl = `data:image/jpeg;base64,${base64Image}`;
+//         }
+//         //console.log(user);
+//         return {
+//           id: user.id,
+//           desc: user.description,
+//           price: user.price,
+//           ecoScore: user.ecoscore, // product is user
+//           s_ecoScore: user.s_ecoscore,
+//           imageUrl,
+//         };
+//       });
+//       console.log("eco: ", ecoScore);
+//       res.render("dashboard", { users, ecoScore });
+//       console.log("eco: ", ecoScore);
+//     } else {
+//       console.log("eco: ", ecoScore);
+//       res.render("dashboard", { users: [], ecoScore });
+//     }
+//   });
+// });
+
+app.get(
+  "/users/suppliers/dashboard",
+  checkNotAuthenticated,
+  async (req, res) => {
+    console.log("user data");
+    console.log(req.user);
+    const ecoScore = req.user.ecoscore;
+    const performance_query = `select supp_id, extract(hour FROM time) as hour, sum(clicks::integer) as totalclicks,
+                            sum(sales::integer) as totalsales 
+                            from supp_performance
+                            group by supp_id, hour having supp_id = $1;`;
+    const supp_id = req.user.id;
+    const results = await pool.query(performance_query, [supp_id]);
+    supplier = results.rows; //results object has the entire data structure and we want only the data stored on rows
+    console.log(supplier);
+    res.render("supplier_dashboard", { ecoScore, supplier });
+  }
+);
 
 app.get("/users/login", checkAuthenticated, (req, res) => {
   //const is_supplier = false;

@@ -1,45 +1,45 @@
 body {
-    font-family: 'Arial', sans-serif;
-    line-height: 1.6;
-    background: #f4f4f4;
-    color: #333;
-    margin: 0;
-    padding: 0;
-  }
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  background: #f4f4f4;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
 
-  .ecoscore {
-    font-size: 24px;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin-top: 20px;
-    text-align: center;
-  }
+.ecoscore {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+  text-align: center;
+}
 
-  .content-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centers the cards horizontally /
-    justify-content: center;
-    margin-top: 20px;
-  }
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers the cards horizontally */
+  justify-content: center;
+  margin-top: 20px;
+}
 
-  .user-card, .summary-card {
-    background: white;
-    padding: 20px;
-    width: 80%;
-    max-width: 400px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    text-align: center;
-    margin: 10px 0; / Adds spacing between the cards */
-  }
+.user-card, .summary-card {
+  background: white;
+  padding: 20px;
+  width: 80%;
+  max-width: 400px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  text-align: center;
+  margin: 10px 0; /* Adds spacing between the cards */
+}
 
 
-  .summary-card {
-    text-align: center;
-  }
+.summary-card {
+  text-align: center;
+}
 
-  .label {
-    font-weight: bold;
-  }
+.label {
+  font-weight: bold;
+}
