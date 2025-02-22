@@ -93,50 +93,26 @@ SESSION_SECRET=your_secret_key
 
 ### Database Configuration
 #### Setting Up PostgreSQL
-If running locally, create the database:
-```bash
-psql -U postgres
-CREATE DATABASE ecofashion;
-```
-Run migrations if applicable.
-
-#### Running the Application
-```bash
-npm start
-```
+Create the database according to the .env settings.
+Use our sql file available on backend to create and test tables.
 
 ## Deployment on Render
 
-1. Push the latest code to GitHub:
-      ```bash
-   git add .
-   git commit -m "Deploying updates"
-   git push origin main
-   ```
-2. Go to Render
-3. Create a new Web Service
-4. Select the repository
-5. Set the root directory as backend/
-6. Use the build command:
-   ```bash
-   npm install
-   ```
-7. Stat command
-   ```bash
-   node server.js
-   ```
+We have deployed our website to render.
+The postgres database is also hosted via render
    
 ## Routes
+**Main routes**
+| Method |    Route           | Description      |
+|--------|--------------------|------------------|
+| GET    | /                  | Home Page        |
+| GET    | /users/profile     | User Profile     |
+| POST   | /users/login       | User Login       |
+| POST   | /users/register    | User Registration|
+| GET    | /users/products    | Fetch Products   |
+| POST   | /users/order/:id   | Place Order      |
 
-| Method |    Route     | Description      |
-|--------|--------------|------------------|
-| GET    | /            | Home Page        |
-| GET    | /profile     | User Profile     |
-| POST   | /login       | User Login       |
-| POST   | /register    | User Registration|
-| GET    | /products    | Fetch Products   |
-| POST   | /order       | Place Order      |
-
+These are examples of our main routes. A delete api is also established on deleting cart history.
 
 ## Future Enhancements
 
@@ -154,26 +130,9 @@ npm start
 
 Scalability Issues
 
-Handling increased traffic, large datasets, and a growing user base efficiently with Node.js and PostgreSQL.
-Data Security & Authentication
+- Getting Merchant API keys from khalti.
+- Organizing of asynchronous function manually.
 
-Protecting user data, securing payments, and preventing fraudulent activities with strong authentication mechanisms.
-Performance Optimization
-
-Optimizing rendering speeds, database queries, and API responses for a seamless shopping experience.
-EcoScore Calculation Transparency
-
-Ensuring that the ecoScore algorithm is fair, transparent, and cannot be manipulated by suppliers or customers.
-Legal & Compliance Issues
-
-Ensuring compliance with sustainability laws, data privacy regulations (like GDPR), and e-commerce policies.
-Payment Gateway Integration
-
-Implementing secure and seamless payment methods while reducing transaction fees.
-Customer Retention & Engagement
-
-Keeping customers engaged and motivated to make sustainable choices long-term.
-Cross-Browser & Mobile Compatibility
 
 ## Contributions
 
