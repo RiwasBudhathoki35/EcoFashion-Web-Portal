@@ -1,34 +1,23 @@
-# ecoFashion Web Portal [Visit ecoFashion](https://ecofashion-web-portal.onrender.com)
-
+# ecoFashion Web Portal 
+![Homepage](https://github.com/iamashlim/EcoFashion-Web-Portal/blob/70466b0d4f8f24687f46eaa9795257087e13e696/frontend/images/Screenshot%20(457).png)
 ecoFashion is an e-commerce platform designed to promote sustainable fashion by providing transparency in the production process and incentivizing eco-friendly choices. Developed as part of a course project by Riwas Budhathoki and Ashlim Tamang from the **Department of Electronics and Computer Engineering, Thapathali Campus, IOE, Nepal**, this platform aims to foster sustainability in the fashion industry through its innovative features.
+
+[Visit ecoFashion](https://ecofashion-web-portal.onrender.com)
 
 ## Table of Contents
 
 1. [Project Overview](#project-overview)
 2. [Team Members](#team-members)
 3. [Key Features](#key-features)
-   - [User Management](#user-management)
-   - [Product Transparency](#product-transparency)
-   - [ecoScore & ecoRating System](#ecoscore-ecorating-system)
-   - [Product & Resource Management](#product-resource-management)
-   - [Enhanced Search Filters](#enhanced-search-filters)
-   - [Shopping Experience](#shopping-experience)
 4. [Tech Stack](#tech-stack)
 5. [Prerequisites](#prerequisites)
 6. [Installation Guide](#installation-guide)
-   - [Clone the Repository](#clone-the-repository)
-   - [Install Dependencies](#install-dependencies)
-   - [Configure Environment Variables](#configure-environment-variables)
-   - [Database Setup](#database-setup)
-   - [Running the Application](#running-the-application)
 7. [Deployment on Render](#deployment-on-render)
 8. [API Endpoints](#api-endpoints)
 9. [Future Enhancements](#future-enhancements)
 10. [Challenges Faced](#challenges-faced)
 11. [Contributions](#contributions)
 12. [License](#license)
-13. [Acknowledgements](#acknowledgements)
-14. [Project Architecture](#project-architecture)
 
 ## Project Overview
 
@@ -40,29 +29,29 @@ ecoFashion is an online platform dedicated to promoting eco-friendly fashion by 
 
 ## Key Features
 
-### User Management
-- Secure authentication system for both consumers and suppliers.
-- Users can register, log in, and manage their profile details.
-- Track personal **ecoScore** based on sustainable shopping habits.
+1. User Management
+   - Secure authentication system for both consumers and suppliers.
+   - Users can register, log in, and manage their profile details.
+   - Track personal **ecoScore** based on sustainable shopping habits.
 
-### Product Transparency
-- Offers detailed insights into the production process of each product.
-- Sustainability metrics, including **ecoScores** and **ecoRatings**, are visible to users.
+2. Product Transparency
+   - Offers detailed insights into the production process of each product.
+   - Sustainability metrics, including **ecoScores** and **ecoRatings**, are visible to users.
 
-### ecoScore & ecoRating System
-- **ecoScore** for consumers based on their purchasing history.
-- **ecoRating** for suppliers based on the sustainability of their products.
-- Users can filter and sort products by **ecoScore**, **ecoRating**, price, and reviews.
+3. ecoScore & ecoRating System
+   - **ecoScore** for consumers based on their purchasing history.
+   - **ecoRating** for suppliers based on the sustainability of their products.
+   - Users can filter and sort products by **ecoScore**, **ecoRating**, price, and reviews.
 
-### Product & Resource Management
-- Suppliers can add, update, and remove products with transparent sustainability data.
-- Easy browsing with product categorization and filtering.
+4. Product & Resource Management
+   - Suppliers can add, update, and remove products with transparent sustainability data.
+   - Easy browsing with product categorization and filtering.
 
-### Enhanced Search Filters
-- Filters for eco-friendly products based on **ecoScore**, **ecoRating**, price, and customer reviews.
+5. Enhanced Search Filters
+   - Filters for eco-friendly products based on **ecoScore**, **ecoRating**, price, and customer reviews.
 
-### Shopping Experience
-- Seamless product browsing with sustainability insights and eco-friendly options.
+7. Shopping Experience
+   - Seamless product browsing with sustainability insights and eco-friendly options.
 
 ## Tech Stack
 
@@ -87,9 +76,19 @@ Make sure you have the following installed:
 git clone https://github.com/RiwasBudhathoki35/EcoFashion-Web-Portal.git
 cd EcoFashion-Web-Portal
 ````
+### Navigate to backend
+```bash
+cd backend
+```
+
 ### Install Dependencies
 ```bash
 npm install
+```
+
+### Start the server
+```bash
+npm server
 ```
 
 ### Environment Variables
@@ -118,7 +117,8 @@ Run migrations if applicable.
 npm start
 ```
 
-#### Deployment on Render
+## Deployment on Render
+
 1. Push the latest code to GitHub:
       ```bash
    git add .
@@ -149,7 +149,23 @@ npm start
 | GET    | /products    | Fetch Products   |
 | POST   | /order       | Place Order      |
 
-## Contributing
+
+## Future Enhancements
+
+- Push Notifications for product updates and promotions.
+- AI-Powered Recommendations based on ecoScore and user preferences.
+- Mobile Application built using React Native for better accessibility.
+- Blockchain Integration for enhanced supply chain transparency.
+
+
+## Challenges Faced
+
+1. **Database Complexity**: Writing raw SQL queries instead of using an ORM (like Sequelize) increased development time.
+2. **User Authentication**: Implementing a secure system that distinguishes between consumer and supplier roles was challenging.
+3. **ecoScore Algorithm**: Designing a fair and accurate ecoScore algorithm to reflect users' sustainability habits required careful thought.
+4. **Time Constraints**: Developing a fully-featured e-commerce platform in a limited timeframe.
+
+## Contributions
 
 Contributions are welcome! Please follow these steps:
 
