@@ -528,7 +528,7 @@ app.get(
 
     const select_supplier = `SELECT qty, product_id FROM order_item WHERE order_id = $1`;
     const checkEcoScore = `
-      SELECT c.ecoScore, o.totalCost 
+      SELECT (c.ecoScore::integer) as ecoscore, (o.totalCost::integer) as totalcost 
       FROM customers c
       JOIN orders o ON c.id = o.customer_id
       WHERE o.id = $1
@@ -553,9 +553,12 @@ app.get(
       // Check if customer's ecoScore is sufficient
       const ecoScoreResult = await client.query(checkEcoScore, [order_id]);
       if (ecoScoreResult.rows.length > 0) {
-        const { ecoScore, totalCost } = ecoScoreResult.rows[0];
+        console.log("CHECK ON THE ERRRROS: ");
+        console.log(ecoScoreResult.rows);
+        const { ecoscore, totalsost } = ecoScoreResult.rows[0];
+        console.log(ecoscore, totalcost);
 
-        if (ecoScore < totalCost) {
+        if (ecoscore < totalCost) {
           await client.query("ROLLBACK"); //rollback if ecoscore < totalcost
           req.flash("error", "Insufficient ecoScore to complete the purchase.");
           return res.redirect(`/users/checkout/${order_id}`);
