@@ -108,7 +108,7 @@ app.get("/", async (req, res) => {
 app.get("/users/dashboard", checkNotAuthenticated, async (req, res) => {
   const customer_id = req.user.id;
   console.log("USER PROFILE");
-  const query = `select sum(p.ecoScore::integer) as total_eco, sum(oi.qty::integer) as total_items
+  const query = `select sum(p.ecoScore::integer * oi.qty::integer) as total_eco, sum(oi.qty::integer) as total_items
                   from orders o 
                   join order_item oi on o.id = oi.order_id
                   join products p on oi.product_id = p.id
