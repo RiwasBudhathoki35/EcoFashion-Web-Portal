@@ -558,7 +558,7 @@ app.get(
         const { ecoscore, totalcost } = ecoScoreResult.rows[0];
         console.log(ecoscore, totalcost);
 
-        if (ecoscore < totalCost) {
+        if (ecoscore < totalcost) {
           await client.query("ROLLBACK"); //rollback if ecoscore < totalcost
           req.flash("error", "Insufficient ecoScore to complete the purchase.");
           return res.redirect(`/users/checkout/${order_id}`);
