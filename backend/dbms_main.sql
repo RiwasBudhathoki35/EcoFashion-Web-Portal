@@ -33,8 +33,6 @@ CREATE TABLE products(
 );
 
 
-select p.description, p.ecoScore, p.image, s.ecoScore
-
 CREATE TABLE orders(
 	id SERIAL PRIMARY KEY NOT NULL,
 	order_date DATE,
@@ -57,6 +55,7 @@ CREATE TABLE order_item(
 	FOREIGN KEY(order_id) REFERENCES orders(id)
 );
 
+--collects the data from website on day to day--
 CREATE TABLE supp_performance(
 	id SERIAL PRIMARY KEY,
 	supp_id INT NOT NULL,
@@ -69,6 +68,13 @@ CREATE TABLE supp_performance(
 
 
 --tests while configuring tables --
+
+--perfomance of website
+select extract(MINUTE FROM time) as minute, sum(clicks::integer) as totalclicks,
+sum(sales::integer) as totalsales 
+from supp_performance
+
+
 drop table supp_performance;
 INSERT INTO supp_performance (supp_id) values (1), (2);
 
@@ -79,10 +85,12 @@ select * from products;
 delete from products where id = 8;
 
 INSERT INTO supp_performance (supp_id) values (1), (2);
+
 --perfomance of website
 select extract(MINUTE FROM time) as minute, sum(clicks::integer) as totalclicks,
 sum(sales::integer) as totalsales 
 from supp_performance
+
 --total sales and clicks of supplier id
 select supp_id, extract(hour FROM time) as hour, sum(clicks::integer) as totalclicks,
 sum(sales::integer) as totalsales 
@@ -168,7 +176,7 @@ ALTER SEQUENCE public.products_id_seq RESTART WITH 1;
 --test data on products
 truncate products;
 select * from products;
-
+--manual insertion for testing
 INSERT INTO products(description, image, price)
 values ('product', pg_read_binary_file('C:\\schoolwork\\Dbms_main\\upload\\product1.jpeg'), '10'),
 		 ('product', pg_read_binary_file('C:\\schoolwork\\Dbms_main\\upload\\product2.jpeg'), '10'),

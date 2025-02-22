@@ -1,4 +1,4 @@
 .env
 backend/node_modules/
 backend/.env/transfer.sql
-trasnfer.sql
+transfer.sql

@@ -555,7 +555,7 @@ app.get(
       if (ecoScoreResult.rows.length > 0) {
         console.log("CHECK ON THE ERRRROS: ");
         console.log(ecoScoreResult.rows);
-        const { ecoscore, totalsost } = ecoScoreResult.rows[0];
+        const { ecoscore, totalcost } = ecoScoreResult.rows[0];
         console.log(ecoscore, totalcost);
 
         if (ecoscore < totalCost) {
