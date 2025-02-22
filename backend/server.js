@@ -108,11 +108,11 @@ app.get("/", async (req, res) => {
 app.get("/users/dashboard", checkNotAuthenticated, async (req, res) => {
   const customer_id = req.user.id;
   console.log("USER PROFILE");
-  const query = select sum(p.ecoScore::integer) as total_eco, sum(oi.qty::integer) as total_items
+  const query = `select sum(p.ecoScore::integer) as total_eco, sum(oi.qty::integer) as total_items
                   from orders o 
                   join order_item oi on o.id = oi.order_id
                   join products p on oi.product_id = p.id
-                  where o.customer_id = $1;;
+                  where o.customer_id = $1;`;
 
   const results = await pool.query(query, [customer_id]);
   const summary = results.rows[0];
@@ -120,48 +120,6 @@ app.get("/users/dashboard", checkNotAuthenticated, async (req, res) => {
   // console.log(req.user);
   const ecoScore = req.user.ecoScore;
   res.render("customer_profile", { user: req.user, summary, ecoScore });
-});
-
-app.get("/users/dashboard", checkNotAuthenticated, (req, res) => {
-  //console.log(req.session);
-  console.log("user data: ");
-  console.log(req.user); //froms session i think// is it deserializing?
-  const ecoScore = req.user.ecoscore;
-  const query = `SELECT p.id, p.description, p.price, p.ecoscore, p.image, s.ecoscore as s_ecoscore
-                FROM products p
-                INNER JOIN suppliers s ON p.supp_id = s.id`;
-  pool.query(query, (err, result) => {
-    if (err) {
-      console.log("error fetching images: ", err);
-      return res.status(500).send("Error retrieving image");
-    }
-    if (result.rows.length > 0) {
-      //Mapping all rows to new users array
-      const users = result.rows.map((user) => {
-        const imageBuffer = user.image;
-        let imageUrl = null;
-        if (imageBuffer) {
-          const base64Image = imageBuffer.toString("base64");
-          imageUrl = `data:image/jpeg;base64,${base64Image}`;
-        }
-        //console.log(user);
-        return {
-          id: user.id,
-          desc: user.description,
-          price: user.price,
-          ecoScore: user.ecoscore, // product is user
-          s_ecoScore: user.s_ecoscore,
-          imageUrl,
-        };
-      });
-      console.log("eco: ", ecoScore);
-      res.render("dashboard", { users, ecoScore });
-      console.log("eco: ", ecoScore);
-    } else {
-      console.log("eco: ", ecoScore);
-      res.render("dashboard", { users: [], ecoScore });
-    }
-  });
 });
 
 app.get("/users/suppliers/dashboard", checkNotAuthenticated, (req, res) => {
