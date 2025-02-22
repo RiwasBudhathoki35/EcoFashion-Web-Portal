@@ -1,75 +1,88 @@
-# EcoFashion-Web-Portal
-ecoFashion is an e-commerce platform designed to promote sustainable fashion by providing transparency in the production process and incentivizing eco-friendly choices. This project was developed to fulfill the course objectives of the Database Management System by a team of two members from the Department of Electronics and Computer Engineering, Thapathali Campus, IOE, Nepal.
+# ecoFashion Web Portal
+
+ecoFashion is an e-commerce platform designed to promote sustainable fashion by providing transparency in the production process and incentivizing eco-friendly choices. Developed as part of a course project by Riwas Budhathoki and Ashlim Tamang from the **Department of Electronics and Computer Engineering, Thapathali Campus, IOE, Nepal**, this platform aims to foster sustainability in the fashion industry through its innovative features.
+
+## Table of Contents
+
+1. [Project Overview](#project-overview)
+2. [Team Members](#team-members)
+3. [Key Features](#key-features)
+   - [User Management](#user-management)
+   - [Product Transparency](#product-transparency)
+   - [ecoScore & ecoRating System](#ecoscore-ecorating-system)
+   - [Product & Resource Management](#product-resource-management)
+   - [Enhanced Search Filters](#enhanced-search-filters)
+   - [Shopping Experience](#shopping-experience)
+4. [Tech Stack](#tech-stack)
+5. [Prerequisites](#prerequisites)
+6. [Installation Guide](#installation-guide)
+   - [Clone the Repository](#clone-the-repository)
+   - [Install Dependencies](#install-dependencies)
+   - [Configure Environment Variables](#configure-environment-variables)
+   - [Database Setup](#database-setup)
+   - [Running the Application](#running-the-application)
+7. [Deployment on Render](#deployment-on-render)
+8. [API Endpoints](#api-endpoints)
+9. [Future Enhancements](#future-enhancements)
+10. [Challenges Faced](#challenges-faced)
+11. [Contributions](#contributions)
+12. [License](#license)
+13. [Acknowledgements](#acknowledgements)
+14. [Project Architecture](#project-architecture)
+
+## Project Overview
+
+ecoFashion is an online platform dedicated to promoting eco-friendly fashion by offering a seamless shopping experience while encouraging responsible consumption. It integrates user management, product categorization, sustainability rating systems (ecoScore and ecoRating), and efficient product/resource management.
 
 ## Team Members
 - [Riwas Budhathoki](https://github.com/RiwasBudhathoki35)
 - [Ashlim Tamang](https://github.com/iamashlim)
 
-## Project Overview
-ecoFashion is a feature-rich e-commerce solution aimed at fostering sustainability within the fashion industry. It integrates user management, product categorization, sustainability rating systems, and an interactive shopping experience. The platform utilizes a powerful backend with Node.js and Express.js, a dynamic frontend built with HTML, CSS, and JavaScript, and PostgreSQL for efficient database management.
-
 ## Key Features
-1. User Management
-   ecoFashion provides a secure and intuitive authentication system, enabling users to:
-   - Register and log in as either a consumer or supplier.
-   - View and modify their profile details.
-   - Track their ecoScore based on sustainable shopping habits.
-2. Product Transparency
-   - Offers in-depth insights into the production process of each product.
-   - Showcases sustainability metrics, including ecoScores and ecoRatings.
-4. ecoScore & ecoRating System
-   - Consumers earn an ecoScore based on their purchases.
-   - Suppliers receive an ecoRating reflecting the sustainability of their products.
-   - Users can filter and sort products based on ecoScore, ecoRating, price, and customer reviews
-4. Product & Resource Management
-   - Suppliers can add, update, and remove products from the platform.
-   - Products are categorized efficiently for seamless browsing.
-   - Consumers can search for items using various filters.
+
+### User Management
+- Secure authentication system for both consumers and suppliers.
+- Users can register, log in, and manage their profile details.
+- Track personal **ecoScore** based on sustainable shopping habits.
+
+### Product Transparency
+- Offers detailed insights into the production process of each product.
+- Sustainability metrics, including **ecoScores** and **ecoRatings**, are visible to users.
+
+### ecoScore & ecoRating System
+- **ecoScore** for consumers based on their purchasing history.
+- **ecoRating** for suppliers based on the sustainability of their products.
+- Users can filter and sort products by **ecoScore**, **ecoRating**, price, and reviews.
+
+### Product & Resource Management
+- Suppliers can add, update, and remove products with transparent sustainability data.
+- Easy browsing with product categorization and filtering.
+
+### Enhanced Search Filters
+- Filters for eco-friendly products based on **ecoScore**, **ecoRating**, price, and customer reviews.
+
+### Shopping Experience
+- Seamless product browsing with sustainability insights and eco-friendly options.
+
+## Tech Stack
+
+- **Backend**: Node.js, Express.js
+- **Frontend**: HTML, CSS, EJS, JavaScript
+- **Database**: PostgreSQL
+- **Authentication**: Passport.js
+- **Hosting**: Render
 
 ## Prerequisites
-- Node.js installed on your machine.
-- PostgreSQL database configured.
-- A modern web browser.
 
-## Installation
+Make sure you have the following installed:
 
+- **Node.js**: For running the server and backend.
+- **PostgreSQL**: For managing the database.
+- **Git**: For version control.
 
-## Usage
+## Installation Guide
 
-
-## Challenges Faced
-- Database Complexity: Writing raw SQL queries instead of using an ORM increased development time.
-- User Authentication: Implementing a secure authentication system required careful security measures.
-- ecoScore Algorithm: Designing a fair and effective ecoScore rating system required thorough analysis.
-- Time Constraints: Developing a fully functional e-commerce platform within a short timeframe was demanding.
-
-## Contributions
-We welcome contributions! If you have suggestions for improvements or encounter any issues, feel free to submit an issue or a pull request.
-
-## License
-ecoFashion is released under the MIT License. You are free to use, modify, and distribute the code in accordance with the license terms.
-
-## Acknowledgements
-- Appreciation to all team members for their dedication to ecoFashion.
-- Special thanks to the open-source community for providing invaluable tools and resources.
-
-## Project Architecture
-ecoFashion is structured with a modular architecture to ensure scalability and maintainability:
-- Backend: Node.js and Express.js handle API requests and authentication.
-- Frontend: HTML, CSS, and JavaScript power a smooth user experience.
-- Database: PostgreSQL efficiently manages user and product data.
-
-## Future Enhancements
-To further improve ecoFashion, we plan to introduce:
-- Push Notifications: Real-time alerts for product updates and promotions.
-- AI-Powered Recommendations: Personalized product suggestions based on user preferences.
-- Mobile Application: A React Native app for better accessibility on mobile devices.
-- Blockchain Integration: Enhanced supply chain transparency by tracking product origins.
-
-For additional details, visit our project repositories:
-- ecoFashion Backend
-- ecoFashion Frontend
-
-By continuously refining ecoFashion, we aim to establish a leading e-commerce platform that advocates for sustainability and responsible consumer habits.
-
-
+### Clone the Repository:
+```bash
+git clone https://github.com/RiwasBudhathoki35/EcoFashion-Web-Portal.git
+cd EcoFashion-Web-Portal
