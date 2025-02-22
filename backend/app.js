@@ -105,22 +105,42 @@ app.get("/", async (req, res) => {
   });
 });
 
-app.get("/users/dashboard", checkNotAuthenticated, async (req, res) => {
-  const customer_id = req.user.id;
-  console.log("USER PROFILE");
-  const query = `select sum(p.ecoScore::integer) as total_eco, sum(oi.qty::integer) as total_items
-                  from orders o 
-                  join order_item oi on o.id = oi.order_id
-                  join products p on oi.product_id = p.id
-                  where o.customer_id = $1;`;
+//Test sections//
+// const sharp = require("sharp");
+// app.get("/test-image", (req, res) => {
+//   pool.query(`select image from products`, async (err, results) => {
+//     if (err) {
+//       console.log(err);
+//       res.send("error quering the database");
+//     }
 
-  const results = await pool.query(query, [customer_id]);
-  const summary = results.rows[0];
-  // console.log(summary);
-  // console.log(req.user);
-  const ecoScore = req.user.ecoScore;
-  res.render("customer_profile", { user: req.user, summary, ecoScore });
-});
+//     const users = await Promise.all(
+//       results.rows.map(async (user) => {
+//         const imageBuffer = user.image;
+//         let imageUrl = null;
+
+//         if (imageBuffer) {
+//           // Resize & Crop the Image (200x200 pixels, centered)
+//           const processedImage = await sharp(imageBuffer)
+//             .resize(200, 200, {
+//               fit: "cover", // Crops while keeping aspect ratio
+//               position: "center", // Keeps focus on the center
+//             })
+//             .toBuffer(); // Convert to buffer
+
+//           const base64Image = processedImage.toString("base64");
+//           imageUrl = `data:image/jpeg;base64,${base64Image}`;
+//         }
+
+//         return {
+//           imageUrl,
+//         };
+//       })
+//     );
+//     res.render("test", { users });
+//   });
+// });
+//end of test section
 
 // app.get("/users/dashboard", checkNotAuthenticated, (req, res) => {
 //   //console.log(req.session);
@@ -164,61 +184,13 @@ app.get("/users/dashboard", checkNotAuthenticated, async (req, res) => {
 //   });
 // });
 
-app.get(
-  "/users/suppliers/dashboard",
-  checkNotAuthenticated,
-  async (req, res) => {
-    console.log("user data");
-    console.log(req.user);
-    const ecoScore = req.user.ecoscore;
-    const supp_id = req.user.id;
-    //check if entry on supp_performance exits for current date
-    const check_res = await pool.query(
-      `SELECT supp_id, time
-                                        FROM supp_performance
-                                        WHERE supp_id = $1 AND date(time) = current_date;
-                                        `,
-      [supp_id]
-    );
-    if (!check_res.rows.length > 0) {
-      console.log("inserting new entry into supp_performance");
-      await pool.query(
-        `insert into supp_performance(supp_id, time) values ($1, now())`,
-        [supp_id]
-      );
-    }
-    //update the performance of supplier once supplier enters dashboard
-    const sales_query = `select sum((oi.unit_price::integer)*(oi.qty::integer)) as total_sales
-                          from orders o
-                          join order_item oi on o.id = oi.order_id
-                          join products p on oi.product_id = p.id
-                          where p.supp_id = $1;`;
-    const update_query = `update supp_performance
-                          set sales = $1
-                          where supp_id = $2 and date(time) = current_date;`;
-    const performance_query = `select supp_id, date(time) as day, sum(clicks::integer) as totalclicks,
-                            sum(sales::integer) as totalsales 
-                            from supp_performance
-                            group by supp_id, day having supp_id = $1;`;
-
-    //fetch the total current sales
-    const sales_res = await pool.query(sales_query, [supp_id]);
-    const sales = sales_res.rows[0];
-    console.log(sales);
-
-    //update the table with sales of current day
-    const update_res = await pool.query(update_query, [
-      sales.total_sales,
-      supp_id,
-    ]);
-    const results = await pool.query(performance_query, [supp_id]);
-
-    //fetch supplier data upto today
-    supplier = results.rows; //results object has the entire data structure and we want only the data stored on rows
-    console.log(supplier);
-    res.render("supplier_dashboard", { ecoScore, supplier });
-  }
-);
+app.get("/users/suppliers/dashboard", checkNotAuthenticated, (req, res) => {
+  console.log("user data");
+  console.log(req.user);
+  const ecoScore = req.user.ecoscore;
+  console.log(req.user);
+  res.render("supplier_dashboard", { ecoScore });
+});
 
 app.get("/users/login", checkAuthenticated, (req, res) => {
   //const is_supplier = false;
@@ -235,6 +207,7 @@ app.get("/users/product/:id", async (req, res) => {
   const ecoScore = req.user ? req.user.ecoscore : 0;
   console.log(ecoScore);
   const order_id = req.user ? req.user.order_id : 4;
+  //const order_id = req.user.order_id;
 
   if (!rawID) {
     console.log("Error: req.params.id is undefined or null");
@@ -244,20 +217,25 @@ app.get("/users/product/:id", async (req, res) => {
   const id = rawID;
   console.log("Decoded ID:", id);
 
-  const query = `SELECT s.id AS supp_id, p.id, p.image, p.description, p.price, p.ecoScore, p.supp_id, s.ecoScore AS s_ecoScore
-                 FROM products p
-                 JOIN suppliers s ON s.id = p.supp_id
-                 WHERE p.id = $1`;
-
+  // Safe query using parameterized SQL to prevent SQL injection
+  const query = `select p.id, p.image, p.description, p.price, p.ecoScore, p.supp_id, s.ecoScore as s_ecoScore
+                 from products p
+                 join suppliers s on s.id = p.supp_id
+                 where p.id = $1`;
+  //   const update_clicks = `udpdate supp_performance set clicks = `
   pool.query(query, [id], (err, result) => {
     if (err) {
       console.error(err);
       return res.redirect("/");
     }
 
+    //console.log("Query Result:", result);
+
     if (result.rows.length > 0) {
       const product = result.rows[0];
-      console.log("Product details:", product);
+      console.log("product details: ");
+      console.log(product);
+      //console.log(user);
       const imageBuffer = product.image;
       let imageUrl = null;
 
@@ -266,19 +244,7 @@ app.get("/users/product/:id", async (req, res) => {
         imageUrl = `data:image/jpeg;base64,${base64Image}`;
       }
 
-      const update_query = `UPDATE supp_performance
-                            SET clicks = (clicks::integer + 1)::varchar
-                            WHERE supp_id = $1 AND DATE(time) = CURRENT_DATE;`;
-
-      pool.query(update_query, [product.supp_id], (updateErr) => {
-        if (updateErr) {
-          console.error("Error updating supplier performance:", updateErr);
-        } else {
-          console.log("Supplier performance updated successfully");
-        }
-
-        return res.render("product", { product, imageUrl, ecoScore, order_id });
-      });
+      return res.render("product", { product, imageUrl, ecoScore, order_id });
     } else {
       console.log("No product found");
       return res.status(404).send("Product not found");
@@ -478,6 +444,7 @@ app.get("/users/cart-update/:order_id", async (req, res) => {
   res.redirect("/users/cart");
 });
 
+//update total sales?
 app.get(
   "/simulate-pay/:order_id",
   checkNotAuthenticated,
@@ -544,6 +511,23 @@ app.get(
     }
   }
 );
+
+app.get("/users/dashboard", checkNotAuthenticated, async (req, res) => {
+  const customer_id = req.user.id;
+  console.log("USER PROFILE");
+  const query = `select sum(p.ecoScore::integer) as total_eco, sum(oi.qty::integer) as total_items
+                  from orders o 
+                  join order_item oi on o.id = oi.order_id
+                  join products p on oi.product_id = p.id
+                  where o.customer_id = $1;`;
+
+  const results = await pool.query(query, [customer_id]);
+  const summary = results.rows[0];
+  // console.log(summary);
+  // console.log(req.user);
+  const ecoScore = req.user.ecoScore;
+  res.render("customer_profile", { user: req.user, summary, ecoScore });
+});
 
 app.post("/users/register", async (req, res) => {
   let {

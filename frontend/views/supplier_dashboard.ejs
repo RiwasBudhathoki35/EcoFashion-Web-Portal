@@ -42,6 +42,87 @@
       </div>
 
       <a href="/" class="homepage-link">Go to Homepage</a>
+
+      <div class="performance-supplier">
+        <h1>Supplier Performance Metrics</h1>
+
+        <% if (supplier.length > 0) { %>
+        <table>
+          <thead>
+            <tr>
+              <th>Supplier ID</th>
+              <th>Date</th>
+              <th>Total Clicks</th>
+              <th>Total Sales</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% supplier.forEach(row => { %>
+            <tr>
+              <td><%= row.supp_id %></td>
+              <td><%= row.day %></td>
+              <td><%= row.totalclicks %></td>
+              <td><%= row.totalsales %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <% } else { %>
+        <h2>No suppliers found</h2>
+        <% } %>
+      </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <canvas id="clicksChart"></canvas>
+    <h1>Tracking Clicks on products and total sales</h1>
+    <script>
+          document.addEventListener("DOMContentLoaded", function () {
+            // Get data from EJS
+            const header = document.querySelector('header'); // Assuming you're targeting a header element
+      if (header) {
+        header.style.backgroundColor = 'black'; // Set the header background to pitch black
+      }
+            const days = <%= JSON.stringify(supplier.map(row => Number(row.day))) %>;
+            const clicks = <%= JSON.stringify(supplier.map(row => Number(row.totalclicks))) %>;
+            const totalsales = <%= JSON.stringify(supplier.map(row => Number(row.totalsales))) %>;
+
+            console.log("days:", days);
+            console.log("Clicks:", clicks);
+            console.log("Total Sales:", totalsales);
+
+            // Create chart
+            const ctx = document.getElementById('clicksChart').getContext('2d');
+            new Chart(ctx, {
+              type: 'line', // Line chart
+              data: {
+                labels: days, // X-axis: days
+                datasets: [
+                  {
+                    label: 'Clicks Over Time',
+                    data: clicks, // Y-axis: Clicks
+                    borderColor: 'blue',
+                    borderWidth: 2,
+                    fill: false
+                  },
+                  {
+                    label: 'Total Sales Over Time',
+                    data: totalsales, // Y-axis: Total Sales
+                    borderColor: 'green', // You can change the color
+                    borderWidth: 2,
+                    fill: false
+                  }
+                ]
+              },
+              options: {
+                responsive: true,
+                scales: {
+                  x: { title: { display: true, text: "Day" } },
+                  y: { title: { display: true, text: "Total Clicks / Sales" } }
+                }
+              }
+            });
+          });
+    </script>
   </body>
 </html>
