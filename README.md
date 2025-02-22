@@ -36,6 +36,7 @@ ecoFashion is an e-commerce platform designed to promote sustainable fashion by 
 ## Project Overview
 
 ecoFashion is an online platform dedicated to promoting eco-friendly fashion by offering a seamless shopping experience while encouraging responsible consumption. It integrates user management, product categorization, sustainability rating systems (ecoScore and ecoRating), and efficient product/resource management.
+![](https://github.com/iamashlim/EcoFashion-Web-Portal/blob/08959277377dd3bb710efd20c139895661b5f464/frontend/images/Screenshot%20(466).png)
 
 ## Team Members
 - [Riwas Budhathoki](https://github.com/RiwasBudhathoki35)
@@ -43,28 +44,28 @@ ecoFashion is an online platform dedicated to promoting eco-friendly fashion by 
 
 ## Key Features
 
-### User Management
+1. User Management
 - Secure authentication system for both consumers and suppliers.
 - Users can register, log in, and manage their profile details.
 - Track personal **ecoScore** based on sustainable shopping habits.
 
-### Product Transparency
+2. Product Transparency
 - Offers detailed insights into the production process of each product.
 - Sustainability metrics, including **ecoScores** and **ecoRatings**, are visible to users.
 
-### ecoScore & ecoRating System
+3. ecoScore & ecoRating System
 - **ecoScore** for consumers based on their purchasing history.
 - **ecoRating** for suppliers based on the sustainability of their products.
 - Users can filter and sort products by **ecoScore**, **ecoRating**, price, and reviews.
 
-### Product & Resource Management
+4. Product & Resource Management
 - Suppliers can add, update, and remove products with transparent sustainability data.
 - Easy browsing with product categorization and filtering.
 
-### Enhanced Search Filters
+5. Enhanced Search Filters
 - Filters for eco-friendly products based on **ecoScore**, **ecoRating**, price, and customer reviews.
 
-### Shopping Experience
+6. Shopping Experience
 - Seamless product browsing with sustainability insights and eco-friendly options.
 
 ## Tech Stack
