@@ -1,41 +1,41 @@
 # EcoFashion-Web-Portal
 A web portal capable of facilitating suppliers and consumers of sustainable fashion. Built on nodeJS, express and postgres.
 
-# Team Members
+## Team Members
 - [Riwas Budhathoki](https://github.com/RiwasBudhathoki35)
 - [Ashlim Tamang](https://github.com/iamashlim)
 
-# Project Overview
+## Project Overview
 
 
-# Key Features
+## Key Features
 
 
 
-# Prerequisites
+## Prerequisites
 
 
-# Installation
+## Installation
 
 
-# Usage
+## Usage
 
 
-# Issues Encountered
+## Issues Encountered
 
 
-# Contributing
+## Contributing
 
 
-# License
+## License
 
 
-# Acknowledgements
+## Acknowledgements
 
 
-# Additional Information
+## Additional Information
 
 
-# Future Enhancements
+## Future Enhancements
 Features
 loading.....
