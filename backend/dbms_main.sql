@@ -46,7 +46,6 @@ CREATE TABLE orders(
 	FOREIGN KEY (customer_id) REFERENCES customers(id)
 );
 
-select * from orders;
 
 CREATE TABLE order_item(
 	id SERIAL PRIMARY KEY NOT NULL,
@@ -67,6 +66,9 @@ CREATE TABLE supp_performance(
 	time TIMESTAMP DEFAULT NOW()
 );
 
+
+
+--tests while configuring tables --
 drop table supp_performance;
 INSERT INTO supp_performance (supp_id) values (1), (2);
 
