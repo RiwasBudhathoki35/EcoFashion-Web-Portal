@@ -1,6 +1,9 @@
-# ecoFashion Web Portal [Visit ecoFashion](https://ecofashion-web-portal.onrender.com)
-
+# ecoFashion Web Portal 
+![Homepage](https://github.com/iamashlim/EcoFashion-Web-Portal/blob/70466b0d4f8f24687f46eaa9795257087e13e696/frontend/images/Screenshot%20(457).png)
+![](https://github.com/iamashlim/EcoFashion-Web-Portal/blob/c4efa8c2eda5fed9cb7805fd09ce73c2b1f5d266/frontend/images/Screenshot%20(458).png)
 ecoFashion is an e-commerce platform designed to promote sustainable fashion by providing transparency in the production process and incentivizing eco-friendly choices. Developed as part of a course project by Riwas Budhathoki and Ashlim Tamang from the **Department of Electronics and Computer Engineering, Thapathali Campus, IOE, Nepal**, this platform aims to foster sustainability in the fashion industry through its innovative features.
+
+[Visit ecoFashion](https://ecofashion-web-portal.onrender.com)
 
 ## Table of Contents
 
